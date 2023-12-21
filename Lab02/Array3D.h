@@ -1,4 +1,3 @@
-// Параметры для ввода/вывода по координате
 enum class SliceDimension
 {
     First,
@@ -6,7 +5,6 @@ enum class SliceDimension
     Third
 };
 
-// Параметры для ввода по двум координатам
 enum class SlicerRowDimensions
 {
     FirstSecond,
@@ -22,7 +20,9 @@ public:
 
     int& operator()(int i, int j, int k);
 
-    int* GetValues(SliceDimension dimension, int index);
+    int* GetValuesCoordinate(SliceDimension dimension, int index);
+
+    int* GetValuesCoordinatePair(SlicerRowDimensions dimension, int index1, int index2);
 
     void SetValuesCoordinate(SliceDimension dimension, int index, int** values);
 

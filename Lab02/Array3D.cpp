@@ -13,7 +13,7 @@ int& Array3D::operator()(int i, int j, int k)
 	return data[i * dim1 * dim2 + j * dim2 + k];
 }
 
-int* Array3D::GetValues(SliceDimension dimension, int index)
+int* Array3D::GetValuesCoordinate(SliceDimension dimension, int index)
 {
     int* slice = nullptr;
     switch (dimension)
@@ -48,6 +48,38 @@ int* Array3D::GetValues(SliceDimension dimension, int index)
             {
                 slice[i * dim1 + j] = data[i * dim1 * dim2 + j * dim2 + index];
             }
+        }
+        break;
+    }
+    return slice;
+}
+
+int* Array3D::GetValuesCoordinatePair(SlicerRowDimensions dimension, int index1, int index2)
+{
+    int* slice = nullptr;
+    switch (dimension)
+    {
+    case SlicerRowDimensions::FirstSecond:
+        slice = new int[dim2];
+        for (int x = 0; x < dim2; x++)
+        {
+            slice[x] = (*this)(index1, index2, x);
+        }
+        break;
+
+    case SlicerRowDimensions::FirstThird:
+        slice = new int[dim1];
+        for (int x = 0; x < dim1; x++)
+        {
+            slice[x] = (*this)(index1, x, index2);
+        }
+        break;
+
+    case SlicerRowDimensions::SecondThird:
+        slice = new int[dim0];
+        for (int x = 0; x < dim0; x++)
+        {
+            slice[x] = (*this)(x, index1, index2);
         }
         break;
     }

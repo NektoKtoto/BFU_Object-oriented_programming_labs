@@ -47,6 +47,10 @@ int main()
         std::cout << "12. Заполнить массив нулями" << std::endl;
         std::cout << "13. Заполнить массив заданным значением" << std::endl;
 
+        std::cout << "14. Получить срез по первой и второй координате (i, j)" << std::endl;
+        std::cout << "15. Получить срез по первой и третьей координате (i, k)" << std::endl;
+        std::cout << "16. Получить срез по второй и третьей координате (j, k)" << std::endl;
+
         std::cout << "0. Выйти" << std::endl;
 
         int choice;
@@ -75,7 +79,7 @@ int main()
             int index;
             std::cout << "Введите индекс для среза по первой координате (i): ";
             std::cin >> index;
-            int* slice = array.GetValues(SliceDimension::First, index);
+            int* slice = array.GetValuesCoordinate(SliceDimension::First, index);
 
             // Вывод среза
             std::cout << "Срез по первой координате (i):" << std::endl;
@@ -96,7 +100,7 @@ int main()
             int index;
             std::cout << "Введите индекс для среза по второй координате (j): ";
             std::cin >> index;
-            int* slice = array.GetValues(SliceDimension::Second, index);
+            int* slice = array.GetValuesCoordinate(SliceDimension::Second, index);
 
             // Вывод среза
             std::cout << "Срез по второй координате (j):" << std::endl;
@@ -117,7 +121,7 @@ int main()
             int index;
             std::cout << "Введите индекс для среза по третьей координате (k): ";
             std::cin >> index;
-            int* slice = array.GetValues(SliceDimension::Third, index);
+            int* slice = array.GetValuesCoordinate(SliceDimension::Third, index);
 
             // Вывод среза
             std::cout << "Срез по третьей координате (k):" << std::endl;
@@ -331,6 +335,63 @@ int main()
             std::cin >> value;
             array.Fill(dim0, dim1, dim2, value);
             std::cout << "Массив заполнен значением " << value << "." << std::endl;
+            break;
+        }
+
+        case 14:
+        {
+            int index1, index2;
+            std::cout << "Введите индексы для среза по первой и второй координатам (i, j): ";
+            std::cin >> index1 >> index2;
+            int* slice = array.GetValuesCoordinatePair(SlicerRowDimensions::FirstSecond, index1, index2);
+
+            // Вывод среза
+            std::cout << "Срез по первой и второй координатам (i, j):" << std::endl;
+            for (int x = 0; x < dim2; x++)
+            {
+                std::cout << slice[x] << " ";
+            }
+            std::cout << std::endl;
+
+            delete[] slice;
+            break;
+        }
+
+        case 15:
+        {
+            int index1, index2;
+            std::cout << "Введите индексы для среза по первой и третьей координатам (i, k): ";
+            std::cin >> index1 >> index2;
+            int* slice = array.GetValuesCoordinatePair(SlicerRowDimensions::FirstThird, index1, index2);
+
+            // Вывод среза
+            std::cout << "Срез по первой и третьей координатам (i, k):" << std::endl;
+            for (int x = 0; x < dim1; x++)
+            {
+                std::cout << slice[x] << " ";
+            }
+            std::cout << std::endl;
+
+            delete[] slice;
+            break;
+        }
+
+        case 16:
+        {
+            int index1, index2;
+            std::cout << "Введите индексы для среза по второй и третьей координатам (j, k): ";
+            std::cin >> index1 >> index2;
+            int* slice = array.GetValuesCoordinatePair(SlicerRowDimensions::SecondThird, index1, index2);
+
+            // Вывод среза
+            std::cout << "Срез по второй и третьей координатам (j, k):" << std::endl;
+            for (int x = 0; x < dim0; x++)
+            {
+                std::cout << slice[x] << " ";
+            }
+            std::cout << std::endl;
+
+            delete[] slice;
             break;
         }
 
